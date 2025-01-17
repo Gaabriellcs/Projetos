@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-
-import { MegaMenu } from 'primeng/megamenu';
 import { MenubarModule } from 'primeng/menubar';
 import { ButtonModule } from 'primeng/button';
 import { CommonModule } from '@angular/common';
@@ -9,7 +7,7 @@ import { AvatarModule } from 'primeng/avatar';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, ButtonModule, MenubarModule , CommonModule, AvatarModule],
+  imports: [RouterOutlet, ButtonModule, MenubarModule , CommonModule, AvatarModule,   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
