@@ -37,6 +37,7 @@ export class AppComponent {
         items: [
           { label: 'Banco', icon: 'pi pi-dollar', routerLink: ['/banco'] },
           { label: 'Fatura', icon: 'pi pi-file', routerLink: ['/faturas'] },
+          { label: 'Categoria', icon: 'pi pi-file', routerLink: ['/categoria'] },
         ]
       }
     ];

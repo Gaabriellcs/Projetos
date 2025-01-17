@@ -85,6 +85,25 @@ public class CadastroFatura : ControllerBase
         {
             return BadRequest($"algo deu errado: {ex.Message}");
         }
+
+    }
+
+    [HttpGet("action")]
+    public IActionResult Listar()
+    {
+        try
+        {
+            var localizados = db.Faturas.ToList();
+            if (localizados == null)
+            {
+                return BadRequest("Nao foi possivel acessar fatura");
+            }
+            return Ok(localizados);
+        }
+        catch (Exception)
+        {
+            return BadRequest();
+        }
     }
 
 
