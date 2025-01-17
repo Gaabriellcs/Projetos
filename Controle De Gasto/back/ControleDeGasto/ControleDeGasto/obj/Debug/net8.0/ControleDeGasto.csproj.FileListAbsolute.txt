@@ -84,3 +84,4 @@ C:\Projetos\Controle De Gasto\back\ControleDeGasto\ControleDeGasto\obj\Debug\net
 C:\Projetos\Controle De Gasto\back\ControleDeGasto\ControleDeGasto\obj\Debug\net8.0\ControleDeGasto.pdb
 C:\Projetos\Controle De Gasto\back\ControleDeGasto\ControleDeGasto\obj\Debug\net8.0\ControleDeGasto.genruntimeconfig.cache
 C:\Projetos\Controle De Gasto\back\ControleDeGasto\ControleDeGasto\obj\Debug\net8.0\ref\ControleDeGasto.dll
+C:\Projetos\Controle De Gasto\back\ControleDeGasto\ControleDeGasto\obj\Debug\net8.0\ControleDeGasto.sourcelink.json
