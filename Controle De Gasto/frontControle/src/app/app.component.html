@@ -1,4 +1,4 @@
-<p-menubar [model]="items">
+<p-menubar [model]="items" *ngIf="!isRouteWithNoMenu()">
   <ng-template pTemplate="start">
     <img src="logo2.png" alt="Logo" height="70">
   </ng-template>

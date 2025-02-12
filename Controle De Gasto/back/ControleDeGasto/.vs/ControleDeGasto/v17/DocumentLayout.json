@@ -1,10 +1,10 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Projetos\\Controle De Gasto\\back\\ControleDeGasto\\",
+  "WorkspaceRootPath": "C:\\Users\\Gabriel\\source\\repos\\Gaabriellcs\\Projetos\\Controle De Gasto\\back\\ControleDeGasto\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{D598F75B-3CE8-4997-8F16-765BE6876FAF}|ControleDeGasto\\ControleDeGasto.csproj|c:\\projetos\\controle de gasto\\back\\controledegasto\\controledegasto\\api\\cadastrofatura.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D598F75B-3CE8-4997-8F16-765BE6876FAF}|ControleDeGasto\\ControleDeGasto.csproj|solutionrelative:controledegasto\\api\\cadastrofatura.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{D598F75B-3CE8-4997-8F16-765BE6876FAF}|ControleDeGasto\\ControleDeGasto.csproj|c:\\users\\gabriel\\source\\repos\\gaabriellcs\\projetos\\controle de gasto\\back\\controledegasto\\controledegasto\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{D598F75B-3CE8-4997-8F16-765BE6876FAF}|ControleDeGasto\\ControleDeGasto.csproj|solutionrelative:controledegasto\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     }
   ],
   "DocumentGroupContainers": [
@@ -14,7 +14,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 327,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 5,
           "Children": [
             {
               "$type": "Bookmark",
@@ -33,16 +33,20 @@
               "Name": "ST:131:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
             },
             {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "CadastroFatura.cs",
-              "DocumentMoniker": "C:\\Projetos\\Controle De Gasto\\back\\ControleDeGasto\\ControleDeGasto\\Api\\CadastroFatura.cs",
-              "RelativeDocumentMoniker": "ControleDeGasto\\Api\\CadastroFatura.cs",
-              "ToolTip": "C:\\Projetos\\Controle De Gasto\\back\\ControleDeGasto\\ControleDeGasto\\Api\\CadastroFatura.cs",
-              "RelativeToolTip": "ControleDeGasto\\Api\\CadastroFatura.cs",
-              "ViewState": "AgIAAEMAAAAAAAAAAAAowGgAAAAgAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-17T15:12:51.776Z",
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\Gabriel\\source\\repos\\Gaabriellcs\\Projetos\\Controle De Gasto\\back\\ControleDeGasto\\ControleDeGasto\\appsettings.json",
+              "RelativeDocumentMoniker": "ControleDeGasto\\appsettings.json",
+              "ToolTip": "C:\\Users\\Gabriel\\source\\repos\\Gaabriellcs\\Projetos\\Controle De Gasto\\back\\ControleDeGasto\\ControleDeGasto\\appsettings.json",
+              "RelativeToolTip": "ControleDeGasto\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-02-12T02:01:58.565Z",
               "EditorCaption": ""
             }
           ]

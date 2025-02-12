@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { MenubarModule } from 'primeng/menubar';
 import { ButtonModule } from 'primeng/button';
 import { CommonModule } from '@angular/common';
 import { AvatarModule } from 'primeng/avatar';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -12,11 +13,23 @@ import { AvatarModule } from 'primeng/avatar';
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
+  private noMenuRoutes: string[] = ['/login', '/registro']; // Rota sem menu
+  currentRoute: string = '';
   title = 'ControleGastoFront';
 
   items: any[] = [];
 
+  constructor(private router: Router, private activatedRoute: ActivatedRoute) {}
+
   ngOnInit() {
+
+    this.router.events
+    .pipe(filter(event => event instanceof NavigationEnd))
+    .subscribe(() => {
+      this.currentRoute = this.router.url;
+    });
+
+    
     this.items = [
       {
         label: 'Dashboard',
@@ -41,5 +54,8 @@ export class AppComponent {
         ]
       }
     ];
+  }
+  isRouteWithNoMenu(): boolean {
+    return this.noMenuRoutes.includes(this.currentRoute);
   }
 }
