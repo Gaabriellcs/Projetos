@@ -4,21 +4,23 @@ import { MenubarModule } from 'primeng/menubar';
 import { ButtonModule } from 'primeng/button';
 import { CommonModule } from '@angular/common';
 import { AvatarModule } from 'primeng/avatar';
-import { filter } from 'rxjs';
+import { filter, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, ButtonModule, MenubarModule , CommonModule, AvatarModule,   ],
+  imports: [RouterOutlet, ButtonModule, MenubarModule , CommonModule, AvatarModule, ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
+  providers: [
+  ]
 })
 export class AppComponent {
-  private noMenuRoutes: string[] = ['/login', '/registro']; // Rota sem menu
+  private noMenuRoutes: string[] = ['/cadastro', '/login']; // Rota sem menu
   currentRoute: string = '';
   title = 'ControleGastoFront';
 
   items: any[] = [];
-
+  
   constructor(private router: Router, private activatedRoute: ActivatedRoute) {}
 
   ngOnInit() {
@@ -57,5 +59,10 @@ export class AppComponent {
   }
   isRouteWithNoMenu(): boolean {
     return this.noMenuRoutes.includes(this.currentRoute);
+  }
+
+  logOff(){
+    localStorage.removeItem('token');
+    this.router.navigate(['/login']);
   }
 }

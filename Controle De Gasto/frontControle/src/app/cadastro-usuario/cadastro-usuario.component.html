@@ -6,18 +6,18 @@
       <form [formGroup]="criarContaForm" (ngSubmit)="criarConta()" class="d-flex flex-column align-items-center " style="margin-top: 60px; margin-bottom: 40px;">
         <div class="col-md-12">
   
-          <input type="text" class="form-control mb-2" placeholder="Usuário" formControlName="usuario">
-          <div *ngIf="criarContaForm.get('usuario')?.invalid && criarContaForm.get('usuario')?.touched" class="text-danger small">
+          <input type="text" class="form-control mb-2" placeholder="Usuário" formControlName="Usuario">
+          <div *ngIf="criarContaForm.get('Usuario')?.invalid && criarContaForm.get('Usuario')?.touched" class="text-danger small">
             Usuário deve ter pelo menos 3 caracteres.
           </div>
   
-          <input type="text" class="form-control mb-2" placeholder="Nome" formControlName="nome">
-          <div *ngIf="criarContaForm.get('nome')?.invalid && criarContaForm.get('nome')?.touched" class="text-danger small">
+          <input type="text" class="form-control mb-2" placeholder="Nome" formControlName="Nome">
+          <div *ngIf="criarContaForm.get('Nome')?.invalid && criarContaForm.get('Nome')?.touched" class="text-danger small">
             O nome deve ter pelo menos 3 caracteres.
           </div>
   
-          <input type="password" class="form-control mb-2" placeholder="Senha" formControlName="senha">
-          <div *ngIf="criarContaForm.get('senha')?.invalid && criarContaForm.get('senha')?.touched" class="text-danger small">
+          <input type="password" class="form-control mb-2" placeholder="Senha" formControlName="Senha">
+          <div *ngIf="criarContaForm.get('Senha')?.invalid && criarContaForm.get('Senha')?.touched" class="text-danger small">
             A senha deve ter pelo menos 6 caracteres.
           </div>
   
@@ -27,9 +27,26 @@
               Criar Conta
             </button>
           </div>
+          <a href="/login">Entrar</a>
+
   
         </div>
       </form>
     </div>
+  </div>
+
+
+  <div class="container mt-4">
+  
+    <p-dialog header="" [(visible)]="displaySuccess" [modal]="true" [closable]="false" [responsive]="true" [style]="{width: '300px'}">
+      <p class="text-center">
+        <i class="pi pi-check-circle" style="font-size: 3rem; color: green;"></i>
+        <br>
+        Conta Criada com sucesso!
+      </p>
+      <p-footer>
+        <button type="button" class="btn btn-primary" (click)="hideSuccessModal()">Fechar</button>
+      </p-footer>
+    </p-dialog>
   </div>
   

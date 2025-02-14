@@ -4,9 +4,10 @@ using CsvHelper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Globalization;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ControleGasto.Api;
-
+[Authorize]
 [Route("api/[controller]")]
 [ApiController]
 public class CadastroFatura : ControllerBase
@@ -23,7 +24,7 @@ public class CadastroFatura : ControllerBase
     {
         if (file == null || file.Length == 0)
         {
-            return BadRequest("Nenhum arquivo foi enviado.");
+            return BadRequest(new { message = "Nenhum arquivo foi enviado." });
         }
 
         try
@@ -61,7 +62,7 @@ public class CadastroFatura : ControllerBase
         }
         catch (Exception ex)
         {
-            return BadRequest($"Erro ao processar o arquivo: {ex.Message}");
+            return BadRequest(new { message = $"Erro ao processar o arquivo: {ex.Message}" });
         }
     }
 
@@ -74,7 +75,7 @@ public class CadastroFatura : ControllerBase
 
             if (localizado == null)
             {
-                return BadRequest("Nao foi possivel localizar o item.");
+                return BadRequest(new { message = "Nao foi possivel localizar o item." });
             }
 
             localizado.IdCategoria = categoria;
@@ -83,7 +84,7 @@ public class CadastroFatura : ControllerBase
         }
         catch (Exception ex)
         {
-            return BadRequest($"algo deu errado: {ex.Message}");
+            return BadRequest(new { message = $"algo deu errado: {ex.Message}" });
         }
 
     }
@@ -96,7 +97,7 @@ public class CadastroFatura : ControllerBase
             var localizados = db.Faturas.ToList();
             if (localizados == null)
             {
-                return BadRequest("Nao foi possivel acessar fatura");
+                return BadRequest(new { message = "Nao foi possivel acessar fatura" });
             }
             return Ok(localizados);
         }

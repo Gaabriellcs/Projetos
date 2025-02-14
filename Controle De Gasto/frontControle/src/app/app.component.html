@@ -3,7 +3,8 @@
     <img src="logo2.png" alt="Logo" height="70">
   </ng-template>
   <ng-template pTemplate="end">
-    <button pButton label="Sair" icon="pi pi-sign-out"></button>
+    <button (click)="logOff()" pButton label="Sair" icon="pi pi-sign-out"></button>
   </ng-template>
 </p-menubar>
+
 <router-outlet />

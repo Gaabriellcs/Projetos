@@ -75,6 +75,16 @@
   },
   {
     "ContainingType": "ControleGasto.Api.CadastroFatura",
+    "Method": "Listar",
+    "RelativePath": "api/CadastroFatura/action",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ControleGasto.Api.CadastroFatura",
     "Method": "CadastrarCategoria",
     "RelativePath": "api/CadastroFatura/CadastrarCategoria/{item}/{categoria}",
     "HttpMethod": "GET",
@@ -110,6 +120,64 @@
       {
         "Name": "banco",
         "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ControleGasto.Api.CadastroUsuario",
+    "Method": "GerarToken",
+    "RelativePath": "api/CadastroUsuario",
+    "HttpMethod": "",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "nomeUsuario",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.String",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "ControleGasto.Api.CadastroUsuario",
+    "Method": "CriaConta",
+    "RelativePath": "api/CadastroUsuario/CriaConta",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "usuario",
+        "Type": "ControleGasto.Dados.Usuarios",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ControleGasto.Api.CadastroUsuario",
+    "Method": "Login",
+    "RelativePath": "api/CadastroUsuario/Login",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "login",
+        "Type": "ControleGasto.Api.loginUsuario",
         "IsRequired": true
       }
     ],

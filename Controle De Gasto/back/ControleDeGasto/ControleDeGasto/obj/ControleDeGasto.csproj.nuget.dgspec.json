@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Projetos\\Controle De Gasto\\back\\ControleDeGasto\\ControleDeGasto\\ControleDeGasto.csproj": {}
+    "C:\\Users\\Gabriel\\source\\repos\\Gaabriellcs\\Projetos\\Controle De Gasto\\back\\ControleDeGasto\\ControleDeGasto\\ControleDeGasto.csproj": {}
   },
   "projects": {
-    "C:\\Projetos\\Controle De Gasto\\back\\ControleDeGasto\\ControleDeGasto\\ControleDeGasto.csproj": {
+    "C:\\Users\\Gabriel\\source\\repos\\Gaabriellcs\\Projetos\\Controle De Gasto\\back\\ControleDeGasto\\ControleDeGasto\\ControleDeGasto.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Projetos\\Controle De Gasto\\back\\ControleDeGasto\\ControleDeGasto\\ControleDeGasto.csproj",
+        "projectUniqueName": "C:\\Users\\Gabriel\\source\\repos\\Gaabriellcs\\Projetos\\Controle De Gasto\\back\\ControleDeGasto\\ControleDeGasto\\ControleDeGasto.csproj",
         "projectName": "ControleDeGasto",
-        "projectPath": "C:\\Projetos\\Controle De Gasto\\back\\ControleDeGasto\\ControleDeGasto\\ControleDeGasto.csproj",
-        "packagesPath": "C:\\Users\\ezequiel.souza\\.nuget\\packages\\",
-        "outputPath": "C:\\Projetos\\Controle De Gasto\\back\\ControleDeGasto\\ControleDeGasto\\obj\\",
+        "projectPath": "C:\\Users\\Gabriel\\source\\repos\\Gaabriellcs\\Projetos\\Controle De Gasto\\back\\ControleDeGasto\\ControleDeGasto\\ControleDeGasto.csproj",
+        "packagesPath": "C:\\Users\\Gabriel\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Gabriel\\source\\repos\\Gaabriellcs\\Projetos\\Controle De Gasto\\back\\ControleDeGasto\\ControleDeGasto\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\ezequiel.souza\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Gabriel\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -42,21 +42,33 @@
         "restoreAuditProperties": {
           "enableAudit": "true",
           "auditLevel": "low",
-          "auditMode": "all"
+          "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.100"
+        "SdkAnalysisLevel": "9.0.200"
       },
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "BCrypt.Net-Next": {
+              "target": "Package",
+              "version": "[4.0.3, )"
+            },
             "CsvHelper": {
               "target": "Package",
               "version": "[33.0.1, )"
             },
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[8.0.13, )"
+            },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
               "version": "[9.0.1, )"
+            },
+            "System.IdentityModel.Tokens.Jwt": {
+              "target": "Package",
+              "version": "[8.4.0, )"
             }
           },
           "imports": [
@@ -78,7 +90,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

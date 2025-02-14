@@ -1,12 +1,13 @@
 ﻿using ControleGasto.Dados;
 using CsvHelper;
 using CsvHelper.Configuration;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Globalization;
 
 namespace ControleGasto.Api;
-
+[Authorize]
 [Route("api/[controller]")]
 [ApiController]
 public class CadastroBanco : ControllerBase
@@ -27,7 +28,7 @@ public class CadastroBanco : ControllerBase
 
             if (db.Bancos.Any(p => p.Nome == descricao))
             {
-                return BadRequest("Um banco com essa descrição já existe.");
+                return BadRequest(new { message = "Um banco com essa descrição já existe." });
             }
 
             Bancos banco = new()
@@ -47,7 +48,7 @@ public class CadastroBanco : ControllerBase
 
             Console.WriteLine(ex.Message);
 
-            return BadRequest("Ocorreu um erro ao cadastrar o banco.");
+            return BadRequest(new { message = "Ocorreu um erro ao cadastrar o banco." });
         }
     }
 
@@ -66,7 +67,7 @@ public class CadastroBanco : ControllerBase
 
             Console.WriteLine(ex.Message);
 
-            return BadRequest("Ocorreu um erro ao obter os bancos.");
+            return BadRequest(new { message = "Ocorreu um erro ao obter os bancos." });
         }
     }
 
@@ -80,7 +81,7 @@ public class CadastroBanco : ControllerBase
 
             if (banco == null)
             {
-                return NotFound("Banco não encontrado.");
+                return NotFound(new { message = "Banco não encontrado." });
             }
 
             banco.Ativo = false;
@@ -92,7 +93,7 @@ public class CadastroBanco : ControllerBase
         catch (Exception ex)
         {
             Console.WriteLine(ex.Message);
-            return BadRequest("Ocorreu um erro ao inativar o banco.");
+            return BadRequest(new { message = "Ocorreu um erro ao inativar o banco." });
         }
     }
 
@@ -105,7 +106,7 @@ public class CadastroBanco : ControllerBase
 
             if (banco == null)
             {
-                return NotFound("Banco não encontrado.");
+                return NotFound(new { message = "Banco não encontrado." });
             }
 
             banco.Ativo = true;
@@ -116,8 +117,7 @@ public class CadastroBanco : ControllerBase
         }
         catch (Exception ex)
         {
-            Console.WriteLine(ex.Message);
-            return BadRequest("Ocorreu um erro ao ativar o banco.");
+            return BadRequest(new { message = "Ocorreu um erro ao ativar o banco." });
         }
     }
 
