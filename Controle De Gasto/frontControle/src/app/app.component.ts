@@ -1,14 +1,16 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { MenubarModule } from 'primeng/menubar';
 import { ButtonModule } from 'primeng/button';
 import { CommonModule } from '@angular/common';
 import { AvatarModule } from 'primeng/avatar';
 import { filter, Observable } from 'rxjs';
+import { LoadingService } from '../services/loading.service';
+import { ProgressSpinner } from 'primeng/progressspinner';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, ButtonModule, MenubarModule , CommonModule, AvatarModule, ],
+  imports: [RouterOutlet, ButtonModule, MenubarModule , CommonModule, AvatarModule, ProgressSpinner],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
   providers: [
@@ -18,10 +20,19 @@ export class AppComponent {
   private noMenuRoutes: string[] = ['/cadastro', '/login']; // Rota sem menu
   currentRoute: string = '';
   title = 'ControleGastoFront';
-
-  items: any[] = [];
   
-  constructor(private router: Router, private activatedRoute: ActivatedRoute) {}
+  items: any[] = [];
+  loading$: Observable<boolean>;
+
+  constructor(private router: Router, private activatedRoute: ActivatedRoute, private loadingService: LoadingService,   private cdr: ChangeDetectorRef) {
+    this.loading$ = this.loadingService.loading$;
+    
+    this.loading$.subscribe(value => console.log('Loading State:', value)); // 🔥 Verifica se os valores mudam
+  }
+
+  ngAfterViewChecked() {
+    this.cdr.detectChanges(); // Força a detecção de mudanças
+  }
 
   ngOnInit() {
 

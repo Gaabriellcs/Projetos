@@ -1,12 +1,15 @@
-/* src/app/app.component.css */
-.loading-spinner {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: rgba(0, 0, 0, 0.5);
-    color: white;
-    padding: 10px;
-    border-radius: 5px;
-  }
-  
+// .overlay-spinner {
+//   position: fixed;
+//   top: 50%;
+//   left: 50%;
+//   transform: translate(-50%, -50%);
+//   z-index: 9999;
+// }
+
+p-progressSpinner {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);  /* Centraliza o spinner */
+  z-index: 9999;  /* Garante que ele apareça acima de outros elementos */
+}

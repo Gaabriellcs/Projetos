@@ -7,4 +7,8 @@
   </ng-template>
 </p-menubar>
 
+
+<p-progressSpinner *ngIf="loading$ | async" styleClass="overlay-spinner"></p-progressSpinner>
+
+
 <router-outlet />
