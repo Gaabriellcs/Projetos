@@ -7,6 +7,7 @@ using System.Globalization;
 using Microsoft.AspNetCore.Authorization;
 
 namespace ControleGasto.Api;
+
 [Authorize]
 [Route("api/[controller]")]
 [ApiController]
@@ -14,9 +15,11 @@ public class CadastroFatura : ControllerBase
 {
 
     private readonly Dados.DB db;
-    public CadastroFatura(Dados.DB DB)
+    private readonly Util _util;
+    public CadastroFatura(Dados.DB DB, Util util)
     {
         db = DB;
+        _util = util;
     }
 
     [HttpPost("[action]/{banco}")]
@@ -29,6 +32,15 @@ public class CadastroFatura : ControllerBase
 
         try
         {
+
+            var usuario = _util.BuscaUsuario(User);
+
+            if (usuario == 0)
+            {
+                return BadRequest(new { message = "Usuario nao encontrado" });
+            }
+
+
             using var reader = new StreamReader(file.OpenReadStream());
             using var csv = new CsvReader(reader, CultureInfo.InvariantCulture);
 
@@ -50,7 +62,8 @@ public class CadastroFatura : ControllerBase
                     Descricao = transacao.Descricao,
                     Valor = (decimal)Math.Round(transacao.Valor, 2),
                     IdCategoria = null,
-                    IdBanco = banco
+                    IdBanco = banco,
+                    IdUsuario = usuario
                 });
             }
 
@@ -71,7 +84,16 @@ public class CadastroFatura : ControllerBase
     {
         try
         {
-            var localizado = db.Faturas.Where(p => p.Id == item).FirstOrDefault();
+
+            var usuario = _util.BuscaUsuario(User);
+
+            if (usuario == 0)
+            {
+                return BadRequest(new { message = "Usuario nao encontrado" });
+            }
+
+
+            var localizado = db.Faturas.Where(p => p.Id == item && p.IdUsuario == usuario).FirstOrDefault();
 
             if (localizado == null)
             {
@@ -94,7 +116,16 @@ public class CadastroFatura : ControllerBase
     {
         try
         {
-            var localizados = db.Faturas.ToList();
+
+            var usuario = _util.BuscaUsuario(User);
+
+            if (usuario == 0)
+            {
+                return BadRequest(new { message = "Usuario nao encontrado" });
+            }
+
+
+            var localizados = db.Faturas.Where(p => p.IdUsuario == usuario);
             if (localizados == null)
             {
                 return BadRequest(new { message = "Nao foi possivel acessar fatura" });

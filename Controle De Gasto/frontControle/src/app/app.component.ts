@@ -27,15 +27,12 @@ export class AppComponent {
   constructor(private router: Router, private activatedRoute: ActivatedRoute, private loadingService: LoadingService,   private cdr: ChangeDetectorRef) {
     this.loading$ = this.loadingService.loading$;
     
-    this.loading$.subscribe(value => console.log('Loading State:', value)); // 🔥 Verifica se os valores mudam
+    this.loading$.subscribe(); 
   }
 
-  ngAfterViewChecked() {
-    this.cdr.detectChanges(); // Força a detecção de mudanças
-  }
-
+  
   ngOnInit() {
-
+    
     this.router.events
     .pipe(filter(event => event instanceof NavigationEnd))
     .subscribe(() => {
@@ -68,6 +65,12 @@ export class AppComponent {
       }
     ];
   }
+ 
+ 
+  ngAfterViewChecked() {
+    this.cdr.detectChanges();
+  }
+
   isRouteWithNoMenu(): boolean {
     return this.noMenuRoutes.includes(this.currentRoute);
   }

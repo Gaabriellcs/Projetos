@@ -14,7 +14,7 @@
         <button 
           pButton 
           type="button" 
-          (onClick)="cadastraBanco()" 
+          (click)="cadastraBanco()" 
           class="btn btn-success">
           Cadastrar banco
         </button>
@@ -42,7 +42,8 @@
               <td>{{ item.nome }}</td>
               <td>{{ item.ativo ? 'Ativo' : 'Inativo' }}</td>
               <td>
-              <span class="pi pi-trash" style="color: red;"></span>
+              <span *ngIf="item.ativo" (click)="inativar(item.id)" class="pi pi-trash" style="color: red; cursor: pointer;"></span>
+              <span *ngIf="!item.ativo" (click)="ativar(item.id)" class="pi pi-check" style="color: green; cursor: pointer;"></span>
               </td>
             </tr>
           </ng-template>

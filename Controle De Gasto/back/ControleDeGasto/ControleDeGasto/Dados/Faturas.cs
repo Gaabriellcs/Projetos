@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace ControleGasto.Dados
 {
@@ -15,13 +16,12 @@ namespace ControleGasto.Dados
         public DateTime Data { get; set; }
         public string Descricao { get; set; } = string.Empty;
         public decimal Valor { get; set; }
+        [ForeignKey("Categoria")]
         public int? IdCategoria { get; set; }
+        [ForeignKey("Bancos")]
         public int? IdBanco { get; set; }
-
-        //[ForeignKey("IdCategoria")]
-        //public Categoria? Categoria { get; set; }
-
-        //[ForeignKey("IdBanco")]
-        //public Bancos? Banco { get; set; }
+        [ForeignKey("Usuarios")]
+        [JsonIgnore]
+        public int IdUsuario { get; set; }
     }
 }

@@ -3,13 +3,13 @@ import { InputTextModule } from 'primeng/inputtext';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgIf } from '@angular/common';
 import { BancoService } from '../../services/banco.service';
 
 
 @Component({
   selector: 'app-banco',
-  imports: [FormsModule, InputTextModule, ButtonModule, TableModule, CommonModule],
+  imports: [FormsModule, InputTextModule, ButtonModule, TableModule, CommonModule, NgIf],
   templateUrl: './banco.component.html',
   styleUrl: './banco.component.scss'
 })
@@ -35,6 +35,22 @@ export class BancoComponent {
   cadastraBanco() {
     this.srv.Cadastrar(this.cadastrobanco).subscribe({
       next: p => {
+        this.listaBanco();
+      }
+    })
+  }
+
+  inativar(id: number){
+    this.srv.Inativar(id).subscribe({
+      next: p =>{
+        this.listaBanco();
+      }
+    })
+  }
+
+  ativar(id: number){
+    this.srv.Ativar(id).subscribe({
+      next: p =>{
         this.listaBanco();
       }
     })

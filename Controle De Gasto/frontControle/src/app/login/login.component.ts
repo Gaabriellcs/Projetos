@@ -25,7 +25,6 @@ export class LoginComponent {
     this.srv.login(this.loginForm.value).subscribe({
       next: p => { 
         this.router.navigate(['/']);
-        console.log(p)
         localStorage.setItem('token', p.token);
       }
     })

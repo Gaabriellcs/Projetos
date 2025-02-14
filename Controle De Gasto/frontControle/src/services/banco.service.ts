@@ -14,7 +14,7 @@ export class BancoService {
 
  
 
-  public ListaBanco():Observable<any>{
+  public ListaBanco(): Observable<any>{
     const url = PathUrl + "ListaBanco";
     return this.http.get(url);
   }
@@ -23,4 +23,15 @@ export class BancoService {
     const url = PathUrl + 'Cadastrar/' + descricao;
     return this.http.get(url);
   }
+
+  public Inativar(id: number): Observable<any>{
+    const url = PathUrl + `Inativar/` + id;
+    return this.http.get(url);
+  }
+  
+  public Ativar(id: number): Observable<any>{
+    const url = PathUrl + `Ativar/` + id;
+    return this.http.get(url);
+  }
+
 }

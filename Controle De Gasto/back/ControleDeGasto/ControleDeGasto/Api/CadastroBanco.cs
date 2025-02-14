@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Globalization;
+using System.Security.Claims;
 
 namespace ControleGasto.Api;
 [Authorize]
@@ -13,10 +14,11 @@ namespace ControleGasto.Api;
 public class CadastroBanco : ControllerBase
 {
     private readonly Dados.DB db;
-
-    public CadastroBanco(Dados.DB DB)
+    private readonly Util _util;
+    public CadastroBanco(Dados.DB DB, Util util)
     {
         db = DB;
+        _util = util;
     }
 
 
@@ -26,6 +28,14 @@ public class CadastroBanco : ControllerBase
         try
         {
 
+
+            var usuario = _util.BuscaUsuario(User);
+
+            if (usuario == 0)
+            {
+                return BadRequest(new { message = "Usuario nao encontrado" });
+            }
+
             if (db.Bancos.Any(p => p.Nome == descricao))
             {
                 return BadRequest(new { message = "Um banco com essa descrição já existe." });
@@ -34,7 +44,8 @@ public class CadastroBanco : ControllerBase
             Bancos banco = new()
             {
                 Ativo = true,
-                Nome = descricao
+                Nome = descricao,
+                IdUsuario = usuario
             };
 
             db.Bancos.Add(banco);
@@ -57,8 +68,14 @@ public class CadastroBanco : ControllerBase
     {
         try
         {
+            var usuario = _util.BuscaUsuario(User);
 
-            var bancos = db.Bancos.ToList();
+            if (usuario == 0)
+            {
+                return BadRequest(new { message = "Usuario nao encontrado" });
+            }
+
+            var bancos = db.Bancos.Where(p => p.IdUsuario == usuario);
 
             return Ok(bancos);
         }
@@ -76,8 +93,14 @@ public class CadastroBanco : ControllerBase
     {
         try
         {
+            var usuario = _util.BuscaUsuario(User);
 
-            var banco = db.Bancos.FirstOrDefault(p => p.Id == id);
+            if (usuario == 0)
+            {
+                return BadRequest(new { message = "Usuario nao encontrado" });
+            }
+
+            var banco = db.Bancos.FirstOrDefault(p => p.Id == id && p.IdUsuario == usuario);
 
             if (banco == null)
             {
@@ -88,7 +111,7 @@ public class CadastroBanco : ControllerBase
 
             db.SaveChanges();
 
-            return Ok("Banco inativado com sucesso.");
+            return Ok();
         }
         catch (Exception ex)
         {
@@ -102,7 +125,14 @@ public class CadastroBanco : ControllerBase
     {
         try
         {
-            var banco = db.Bancos.FirstOrDefault(p => p.Id == id);
+            var usuario = _util.BuscaUsuario(User);
+
+            if (usuario == 0)
+            {
+                return BadRequest(new { message = "Usuario nao encontrado" });
+            }
+
+            var banco = db.Bancos.FirstOrDefault(p => p.Id == id && p.IdUsuario == usuario);
 
             if (banco == null)
             {
@@ -113,13 +143,15 @@ public class CadastroBanco : ControllerBase
 
             db.SaveChanges();
 
-            return Ok("Banco ativado com sucesso.");
+            return Ok();
         }
         catch (Exception ex)
         {
             return BadRequest(new { message = "Ocorreu um erro ao ativar o banco." });
         }
     }
+
+
 
 
 }

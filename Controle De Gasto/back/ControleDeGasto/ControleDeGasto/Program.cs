@@ -1,4 +1,5 @@
 using System.Text;
+using ControleGasto;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -44,6 +45,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
+builder.Services.AddScoped<Util>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

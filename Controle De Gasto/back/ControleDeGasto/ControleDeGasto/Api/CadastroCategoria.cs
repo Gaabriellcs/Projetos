@@ -10,9 +10,11 @@ namespace ControleGasto.Api;
 public class CadastroCategoria : ControllerBase
 {
     private readonly Dados.DB db;
-    public CadastroCategoria(Dados.DB DB)
+    private readonly Util _util;
+    public CadastroCategoria(Dados.DB DB, Util util)
     {
         db = DB;
+        _util = util;
     }
 
     [HttpGet("[action]/{descricao}")]
@@ -20,7 +22,15 @@ public class CadastroCategoria : ControllerBase
     {
         try
         {
-            if (db.Categorias.Any(p => p.Descricao == descricao))
+
+            var usuario = _util.BuscaUsuario(User);
+
+            if (usuario == 0)
+            {
+                return BadRequest(new { message = "Usuario nao encontrado" });
+            }
+
+            if (db.Categorias.Any(p => p.Descricao == descricao && p.IdUsuario == usuario))
             {
                 return BadRequest(new { message = "Categoria já cadastrada." });
             }
