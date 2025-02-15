@@ -35,7 +35,7 @@ export class FaturasComponent {
   }
 
   listaBanco() {
-    this.bancos.ListaBanco().subscribe({
+    this.bancos.ListaBanco(true).subscribe({
       next: p => {
         this.bancosDados = p;
       }

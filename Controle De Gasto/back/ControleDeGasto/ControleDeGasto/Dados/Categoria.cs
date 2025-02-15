@@ -11,6 +11,10 @@ public record Categoria
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int Id { get; set; }
     public string Descricao { get; set; } = string.Empty;
+    public bool Ativo { get; set; }
+
+
+
     [ForeignKey("Usuarios")]
     [JsonIgnore]
     public int IdUsuario { get; set; }

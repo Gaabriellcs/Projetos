@@ -33,7 +33,7 @@ public class CadastroBanco : ControllerBase
 
             if (usuario == 0)
             {
-                return BadRequest(new { message = "Usuario nao encontrado" });
+                return BadRequest(new { message = "Usuário não encontrado" });
             }
 
             if (db.Bancos.Any(p => p.Nome == descricao))
@@ -54,36 +54,41 @@ public class CadastroBanco : ControllerBase
 
             return Ok(new { Message = "Banco cadastrado com sucesso.", BancoId = banco.Id });
         }
-        catch (Exception ex)
+        catch (Exception )
         {
-
-            Console.WriteLine(ex.Message);
-
             return BadRequest(new { message = "Ocorreu um erro ao cadastrar o banco." });
         }
     }
 
-    [HttpGet("[action]")]
-    public IActionResult ListaBanco()
+    [HttpGet("[action]/{ativo}")]
+    public IActionResult ListaBanco(bool ativo)
     {
         try
         {
             var usuario = _util.BuscaUsuario(User);
 
+
             if (usuario == 0)
             {
-                return BadRequest(new { message = "Usuario nao encontrado" });
+                return BadRequest(new { message = "Usuário não encontrado" });
             }
 
-            var bancos = db.Bancos.Where(p => p.IdUsuario == usuario);
+            if (ativo)
+            {
+                var bancos = db.Bancos.Where(p => p.IdUsuario == usuario && p.Ativo);
+                return Ok(bancos);
 
-            return Ok(bancos);
+            }
+            else
+            {
+                var bancos = db.Bancos.Where(p => p.IdUsuario == usuario);
+                return Ok(bancos);
+            }
+
+
         }
-        catch (Exception ex)
+        catch (Exception )
         {
-
-            Console.WriteLine(ex.Message);
-
             return BadRequest(new { message = "Ocorreu um erro ao obter os bancos." });
         }
     }
@@ -97,7 +102,7 @@ public class CadastroBanco : ControllerBase
 
             if (usuario == 0)
             {
-                return BadRequest(new { message = "Usuario nao encontrado" });
+                return BadRequest(new { message = "Usuário não encontrado" });
             }
 
             var banco = db.Bancos.FirstOrDefault(p => p.Id == id && p.IdUsuario == usuario);
@@ -113,9 +118,8 @@ public class CadastroBanco : ControllerBase
 
             return Ok();
         }
-        catch (Exception ex)
+        catch (Exception )
         {
-            Console.WriteLine(ex.Message);
             return BadRequest(new { message = "Ocorreu um erro ao inativar o banco." });
         }
     }
@@ -129,7 +133,7 @@ public class CadastroBanco : ControllerBase
 
             if (usuario == 0)
             {
-                return BadRequest(new { message = "Usuario nao encontrado" });
+                return BadRequest(new { message = "Usuário não encontrado" });
             }
 
             var banco = db.Bancos.FirstOrDefault(p => p.Id == id && p.IdUsuario == usuario);
@@ -145,7 +149,7 @@ public class CadastroBanco : ControllerBase
 
             return Ok();
         }
-        catch (Exception ex)
+        catch (Exception )
         {
             return BadRequest(new { message = "Ocorreu um erro ao ativar o banco." });
         }

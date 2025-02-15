@@ -24,7 +24,7 @@ export class BancoComponent {
   }
 
   listaBanco(){
-    this.srv.ListaBanco().subscribe({
+    this.srv.ListaBanco(false).subscribe({
       next: p=>{
         this.bancos = p;
       }

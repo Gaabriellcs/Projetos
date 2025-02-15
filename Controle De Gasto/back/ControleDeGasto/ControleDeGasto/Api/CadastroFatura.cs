@@ -37,7 +37,7 @@ public class CadastroFatura : ControllerBase
 
             if (usuario == 0)
             {
-                return BadRequest(new { message = "Usuario nao encontrado" });
+                return BadRequest(new { message = "Usuário não encontrado" });
             }
 
 
@@ -71,7 +71,7 @@ public class CadastroFatura : ControllerBase
             db.Faturas.AddRange(faturas);
             await db.SaveChangesAsync();
 
-            return Ok("Arquivo importado com sucesso.");
+            return Ok();
         }
         catch (Exception ex)
         {
@@ -89,7 +89,7 @@ public class CadastroFatura : ControllerBase
 
             if (usuario == 0)
             {
-                return BadRequest(new { message = "Usuario nao encontrado" });
+                return BadRequest(new { message = "Usuário não encontrado" });
             }
 
 
@@ -97,7 +97,7 @@ public class CadastroFatura : ControllerBase
 
             if (localizado == null)
             {
-                return BadRequest(new { message = "Nao foi possivel localizar o item." });
+                return BadRequest(new { message = "Não foi possivel localizar o item." });
             }
 
             localizado.IdCategoria = categoria;
@@ -121,14 +121,14 @@ public class CadastroFatura : ControllerBase
 
             if (usuario == 0)
             {
-                return BadRequest(new { message = "Usuario nao encontrado" });
+                return BadRequest(new { message = "Usuário não encontrado" });
             }
 
 
             var localizados = db.Faturas.Where(p => p.IdUsuario == usuario);
             if (localizados == null)
             {
-                return BadRequest(new { message = "Nao foi possivel acessar fatura" });
+                return BadRequest(new { message = "Não  foi possivel acessar fatura" });
             }
             return Ok(localizados);
         }
