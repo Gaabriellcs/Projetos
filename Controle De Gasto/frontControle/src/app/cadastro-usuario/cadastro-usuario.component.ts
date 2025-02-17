@@ -12,8 +12,7 @@ import { Router } from '@angular/router';
   styleUrl: './cadastro-usuario.component.scss'
 })
 export class CadastroUsuarioComponent {
-
-  constructor (private srv: UsuarioService,  private router: Router){}
+  displaySuccess: boolean = false;
 
   criarContaForm = new FormGroup({
     Senha: new FormControl<string>('', [Validators.required]),
@@ -21,6 +20,8 @@ export class CadastroUsuarioComponent {
     Usuario: new FormControl<string>('', [Validators.required]),
   });
   
+  constructor (private srv: UsuarioService,  private router: Router){}
+
   criarConta(){
     this.srv.CriaConta(this.criarContaForm.value).subscribe({
       next: p => {
@@ -32,7 +33,6 @@ export class CadastroUsuarioComponent {
     })
   }
 
-  displaySuccess: boolean = false;
 
   showSuccessModal() {
     this.displaySuccess = true;

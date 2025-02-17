@@ -68,7 +68,11 @@ public class CadastroCategoria : ControllerBase
                 return BadRequest(new { message = "Usuário não encontrado" });
             }
 
-            var categorias = db.Categorias.Where(p => p.IdUsuario == usuario).ToList();
+            var categorias = db.Categorias
+                         .Where(p => p.IdUsuario == usuario)
+                         .OrderBy(c => c.Descricao)
+                         .ToList();
+
 
             return Ok(categorias);
 

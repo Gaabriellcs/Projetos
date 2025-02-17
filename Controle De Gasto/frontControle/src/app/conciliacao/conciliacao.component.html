@@ -1,1 +1,35 @@
-<p>conciliacao works!</p>
+<div class="col mx-auto card p-4 mt-5" style="width: 90%;">
+    <div class="flex flex-col items-start gap-3 mb-4">
+        <!-- <label for="dateRange" class="font-semibold whitespace-nowrap">Filtrar por Data:</label> -->
+        <p-datepicker id="dateRange" [(ngModel)]="dataFiltro" selectionMode="range" dateFormat="dd/mm/yy"
+            showIcon="true" placeholder="Selecione um intervalo" (ngModelChange)="buscarFaturas()"
+            class="w-full md:w-auto">
+        </p-datepicker>
+    </div>
+
+
+    <p-table [value]="fatura" [tableStyle]="{ 'min-width': '50rem' }">
+        <ng-template #header>
+            <tr>
+                <th>Descrição</th>
+                <th>Data</th>
+                <th>Banco</th>
+                <th>Valor</th>
+                <th>Categoria</th>
+            </tr>
+        </ng-template>
+        <ng-template #body let-item>
+            <tr>
+                <td>{{ item.descricao }}</td>
+                <td>{{ item.data | date:'dd/MM/yyyy' }}</td>
+                <td>{{ item.bancoNome }}</td>
+                <td>{{ item.valor | currency:'BRL':'symbol':'1.2-2' }}</td>
+                <td *ngIf="item.idCategoria">{{ item.categoriaNome }}</td>
+                <td *ngIf="!item.idCategoria">
+                    <p-select [options]="categorias" optionLabel="descricao" placeholder="Selecione uma categoria"
+                        class="w-full md:w-56" (onChange)="selecionarCategoria($event, item.id)"></p-select>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>

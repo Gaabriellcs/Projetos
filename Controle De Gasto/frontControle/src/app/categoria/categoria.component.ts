@@ -35,6 +35,7 @@ export class CategoriaComponent {
     this.srv.Cadastrar(this.descricao).subscribe({
       next: p => {
         this.listar();
+        this.descricao = ''
       }
     })
   }

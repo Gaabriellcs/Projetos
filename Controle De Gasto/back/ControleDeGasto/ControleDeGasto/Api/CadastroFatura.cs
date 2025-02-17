@@ -111,8 +111,8 @@ public class CadastroFatura : ControllerBase
 
     }
 
-    [HttpGet("action")]
-    public IActionResult Listar()
+    [HttpGet("[action]/{dataInicio}/{dataFim}")]
+    public IActionResult Listar(DateTime dataInicio, DateTime dataFim)
     {
         try
         {
@@ -124,17 +124,58 @@ public class CadastroFatura : ControllerBase
                 return BadRequest(new { message = "Usuário não encontrado" });
             }
 
+            if (dataInicio > dataFim)
+            {
+                return BadRequest(new { message = "A data de início não pode ser maior que a data de fim." });
+            }
 
-            var localizados = db.Faturas.Where(p => p.IdUsuario == usuario);
+
+            var localizados = db.Faturas
+                .GroupJoin(
+                    db.Categorias,
+                    fatura => fatura.IdCategoria, 
+                    categoria => categoria.Id,   
+                    (fatura, categorias) => new { fatura, categorias }
+                )
+                .SelectMany(
+                    fc => fc.categorias.DefaultIfEmpty(), 
+                    (fc, categoria) => new { fc.fatura, categoria }
+                )
+                .GroupJoin(
+                    db.Bancos, 
+                    f => f.fatura.IdBanco, 
+                    banco => banco.Id,     
+                    (f, bancos) => new { f, bancos }
+                )
+                .SelectMany(
+                    fb => fb.bancos.DefaultIfEmpty(),
+                    (fb, banco) => new
+                    {
+                        fb.f.fatura.Id,
+                        fb.f.fatura.Descricao,
+                        fb.f.fatura.Valor,
+                        fb.f.fatura.Data,
+                        idUsuario = fb.f.fatura.IdUsuario,
+                        idCategoria = fb.f.categoria != null ? fb.f.categoria.Id : (int?)null,
+                        CategoriaNome = fb.f.categoria != null ? fb.f.categoria.Descricao : "Sem Categoria",
+                        BancoNome = banco != null ? banco.Nome : "Sem Banco"
+                    }
+                )
+                .Where(f => f.idUsuario == usuario && f.Data >= dataInicio && f.Data <= dataFim) 
+                .ToList();
+
+
+
+            //var localizados = db.Faturas.Where(p => p.IdUsuario == usuario);
             if (localizados == null)
             {
                 return BadRequest(new { message = "Não  foi possivel acessar fatura" });
             }
             return Ok(localizados);
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            return BadRequest();
+            return BadRequest(new { message = ex.Message });
         }
     }
 
