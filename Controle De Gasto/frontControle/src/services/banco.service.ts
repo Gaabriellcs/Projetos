@@ -19,8 +19,8 @@ export class BancoService {
     return this.http.get(url);
   }
 
-  public Cadastrar(descricao: string): Observable<any> {
-    const url = PathUrl + 'Cadastrar/' + descricao;
+  public Cadastrar(descricao: string, codigoBanco: number): Observable<any> {
+    const url = PathUrl + 'Cadastrar/' + descricao + '/' + codigoBanco;
     return this.http.get(url);
   }
 

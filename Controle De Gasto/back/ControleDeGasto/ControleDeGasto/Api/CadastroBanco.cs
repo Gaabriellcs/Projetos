@@ -22,8 +22,9 @@ public class CadastroBanco : ControllerBase
     }
 
 
-    [HttpGet("[action]/{descricao}")]
-    public IActionResult Cadastrar(string descricao)
+    [HttpGet("[action]/{descricao}/{codigoBanco}")]
+    
+    public IActionResult Cadastrar(string descricao, int codigoBanco)
     {
         try
         {
@@ -45,7 +46,8 @@ public class CadastroBanco : ControllerBase
             {
                 Ativo = true,
                 Nome = descricao,
-                IdUsuario = usuario
+                IdUsuario = usuario,
+                CodigoBanco = codigoBanco
             };
 
             db.Bancos.Add(banco);

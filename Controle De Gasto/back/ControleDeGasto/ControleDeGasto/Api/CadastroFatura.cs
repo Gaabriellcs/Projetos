@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Globalization;
 using Microsoft.AspNetCore.Authorization;
+using CsvHelper.TypeConversion;
+using System.Text.RegularExpressions;
 
 namespace ControleGasto.Api;
 
@@ -45,9 +47,23 @@ public class CadastroFatura : ControllerBase
             using var csv = new CsvReader(reader, CultureInfo.InvariantCulture);
 
             // Configura o mapeamento do CSV para a classe Transacao
-            csv.Context.RegisterClassMap<TransacaoMap>();
+
+            var codigoBanco = db.Bancos.Where(p => p.Id == banco && p.IdUsuario == usuario).FirstOrDefault();
+
+            if (codigoBanco?.CodigoBanco == 77)
+            {
+                csv.Context.RegisterClassMap<TransacaoMapInter>();
+
+            }
+            else
+            {
+                csv.Context.RegisterClassMap<TransacaoMap>();
+
+            }
+
 
             // Lê os registros do CSV
+
             var transacoes = csv.GetRecords<Transacao>().ToList();
 
             // Converte as transações para faturas
@@ -133,18 +149,18 @@ public class CadastroFatura : ControllerBase
             var localizados = db.Faturas
                 .GroupJoin(
                     db.Categorias,
-                    fatura => fatura.IdCategoria, 
-                    categoria => categoria.Id,   
+                    fatura => fatura.IdCategoria,
+                    categoria => categoria.Id,
                     (fatura, categorias) => new { fatura, categorias }
                 )
                 .SelectMany(
-                    fc => fc.categorias.DefaultIfEmpty(), 
+                    fc => fc.categorias.DefaultIfEmpty(),
                     (fc, categoria) => new { fc.fatura, categoria }
                 )
                 .GroupJoin(
-                    db.Bancos, 
-                    f => f.fatura.IdBanco, 
-                    banco => banco.Id,     
+                    db.Bancos,
+                    f => f.fatura.IdBanco,
+                    banco => banco.Id,
                     (f, bancos) => new { f, bancos }
                 )
                 .SelectMany(
@@ -161,7 +177,7 @@ public class CadastroFatura : ControllerBase
                         BancoNome = banco != null ? banco.Nome : "Sem Banco"
                     }
                 )
-                .Where(f => f.idUsuario == usuario && f.Data >= dataInicio && f.Data <= dataFim) 
+                .Where(f => f.idUsuario == usuario && f.Data >= dataInicio && f.Data <= dataFim && f.Descricao != "Pagamento recebido")
                 .ToList();
 
 
@@ -192,6 +208,21 @@ public class CadastroFatura : ControllerBase
         }
     }
 
+    public class TransacaoMapInter : ClassMap<Transacao>
+    {
+        public TransacaoMapInter()
+        {
+            Map(t => t.Data).Name("Data").TypeConverterOption.Format("dd/MM/yyyy");
+            Map(t => t.Descricao).Name("Lançamento");
+            Map(t => t.Valor).Name("Valor")
+            .TypeConverterOption.NumberStyles(NumberStyles.AllowDecimalPoint | NumberStyles.AllowThousands)
+            .TypeConverterOption.CultureInfo(new CultureInfo("pt-BR"))
+            .TypeConverter(new ValorConverter()); ;
+            Map(t => t.IdCategoria).Name("category_id").Optional();
+            Map(t => t.IdBanco).Name("bank_id").Optional();
+        }
+    }
+
     public class Transacao
     {
         public DateTime Data { get; set; }
@@ -199,6 +230,20 @@ public class CadastroFatura : ControllerBase
         public decimal Valor { get; set; }
         public int? IdCategoria { get; set; } // Opcional
         public int? IdBanco { get; set; } // Opcional
+    }
+
+    public class ValorConverter : DefaultTypeConverter
+    {
+        public override object ConvertFromString(string text, IReaderRow row, MemberMapData memberMapData)
+        {
+            if (string.IsNullOrWhiteSpace(text))
+                return 0m; // Retorna 0 se o valor for nulo ou vazio
+
+            // Remove "R$", espaços extras e converte para decimal
+            string valorLimpo = Regex.Replace(text, @"[^\d,]", "");
+
+            return decimal.Parse(valorLimpo, new CultureInfo("pt-BR"));
+        }
     }
 }
 

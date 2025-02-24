@@ -11,6 +11,12 @@
           [(ngModel)]="cadastrobanco" 
           placeholder="Nome do Banco" 
           class="form-control" />
+          <input 
+          type="number" 
+          pInputText 
+          [(ngModel)]="codigoBanco" 
+          placeholder="Codigo Banco" 
+          class="form-control" />
         <button 
           pButton 
           type="button" 
@@ -32,6 +38,7 @@
           <ng-template pTemplate="header">
             <tr>
               <th>Banco</th>
+              <th>Codigo do Banco</th>
               <th>Status</th>
               <th>Ação</th>
             </tr>
@@ -40,6 +47,7 @@
           <ng-template pTemplate="body" let-item>
             <tr>
               <td>{{ item.nome }}</td>
+              <td>{{ item.codigoBanco }}</td>
               <td>{{ item.ativo ? 'Ativo' : 'Inativo' }}</td>
               <td>
               <span *ngIf="item.ativo" (click)="inativar(item.id)" class="pi pi-trash" style="color: red; cursor: pointer;"></span>

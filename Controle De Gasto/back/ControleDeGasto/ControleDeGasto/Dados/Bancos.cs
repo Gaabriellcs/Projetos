@@ -11,10 +11,11 @@ namespace ControleGasto.Dados
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public string Nome { get; set; } = string.Empty;
-
+                                                        
         [ForeignKey("Usuarios")]
         [JsonIgnore]
         public int IdUsuario { get; set; }
+        public int? CodigoBanco { get; set; }
         public bool Ativo { get; set; }
 
     }

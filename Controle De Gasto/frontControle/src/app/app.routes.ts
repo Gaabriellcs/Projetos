@@ -8,6 +8,7 @@ import { LoginComponent } from './login/login.component';
 import { ConciliacaoComponent } from './conciliacao/conciliacao.component';
 
 export const routes: Routes = [
+        { path: '', component: DashboardComponent },
         { path: 'banco', component: BancoComponent },
         { path: 'dashboard', component: DashboardComponent },
         { path: 'faturas', component: FaturasComponent },

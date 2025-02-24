@@ -15,6 +15,7 @@ import { BancoService } from '../../services/banco.service';
 })
 export class BancoComponent {
   cadastrobanco: string = "";
+  codigoBanco: any;
   bancos!: any[];
 
   constructor(private srv: BancoService) { }
@@ -33,7 +34,7 @@ export class BancoComponent {
   }
 
   cadastraBanco() {
-    this.srv.Cadastrar(this.cadastrobanco).subscribe({
+    this.srv.Cadastrar(this.cadastrobanco, this.codigoBanco).subscribe({
       next: p => {
         this.listaBanco();
       }
