@@ -60,8 +60,8 @@ export class AppComponent {
         items: [
           { label: 'Banco', icon: 'pi pi-dollar', routerLink: ['/banco'] },
           { label: 'Fatura', icon: 'pi pi-file', routerLink: ['/faturas'] },
-          { label: 'Categoria', icon: 'pi pi-file', routerLink: ['/categoria'] },
-          { label: 'Conciliação', icon: 'pi pi-file', routerLink: ['/conciliacao'] },
+          { label: 'Categoria', icon: 'pi pi-align-center', routerLink: ['/categoria'] },
+          { label: 'Conciliação', icon: 'pi pi-copy', routerLink: ['/conciliacao'] },
         ]
       }
     ];

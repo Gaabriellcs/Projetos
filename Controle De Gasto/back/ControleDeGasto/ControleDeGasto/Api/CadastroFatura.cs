@@ -46,7 +46,7 @@ public class CadastroFatura : ControllerBase
             using var reader = new StreamReader(file.OpenReadStream());
             using var csv = new CsvReader(reader, CultureInfo.InvariantCulture);
 
-            // Configura o mapeamento do CSV para a classe Transacao
+           
 
             var codigoBanco = db.Bancos.Where(p => p.Id == banco && p.IdUsuario == usuario).FirstOrDefault();
 
@@ -62,11 +62,11 @@ public class CadastroFatura : ControllerBase
             }
 
 
-            // Lê os registros do CSV
+           
 
             var transacoes = csv.GetRecords<Transacao>().ToList();
 
-            // Converte as transações para faturas
+            
             var faturas = new List<Faturas>();
 
             foreach (var transacao in transacoes)
@@ -83,7 +83,7 @@ public class CadastroFatura : ControllerBase
                 });
             }
 
-            // Adiciona as faturas no banco
+            
             db.Faturas.AddRange(faturas);
             await db.SaveChangesAsync();
 

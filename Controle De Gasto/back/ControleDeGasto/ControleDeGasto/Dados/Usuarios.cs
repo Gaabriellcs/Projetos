@@ -14,5 +14,9 @@ namespace ControleGasto.Dados
         public bool Ativo { get; set; }
         public string Nome { get; set; } = string.Empty;
 
+
+        [InverseProperty("Usuario")]
+        public IEnumerable<Categoria>? Categoria { get; set; }
+
     }
 }

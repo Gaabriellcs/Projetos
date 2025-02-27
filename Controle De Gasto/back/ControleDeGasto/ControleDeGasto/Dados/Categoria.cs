@@ -13,9 +13,10 @@ public record Categoria
     public string Descricao { get; set; } = string.Empty;
     public bool Ativo { get; set; }
 
-
-
-    [ForeignKey("Usuarios")]
-    [JsonIgnore]
     public int IdUsuario { get; set; }
+
+
+    [ForeignKey("IdUsuario")]
+    [JsonIgnore]
+    public Usuarios? Usuario { get; set; }
 }
