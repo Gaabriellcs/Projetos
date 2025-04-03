@@ -10,6 +10,7 @@ namespace ControleGasto.Dados
         public DbSet<ControleGasto.Dados.Categoria> Categorias { get; set; }
         public DbSet<ControleGasto.Dados.Faturas> Faturas { get; set; }
         public DbSet<ControleGasto.Dados.Usuarios> Usuarios { get; set; }
+        public DbSet<ControleGasto.Dados.ConciliacaoPadrao> ConciliacaoPadrao { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

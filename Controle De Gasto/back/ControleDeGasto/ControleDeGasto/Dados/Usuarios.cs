@@ -17,6 +17,8 @@ namespace ControleGasto.Dados
 
         [InverseProperty("Usuario")]
         public IEnumerable<Categoria>? Categoria { get; set; }
-
+        
+        
+        
     }
 }

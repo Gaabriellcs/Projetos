@@ -13,7 +13,8 @@ builder.Services.AddDbContext<ControleGasto.Dados.DB>(opt =>
 {
     opt.UseSqlServer(builder.Configuration.GetConnectionString("dbo") + ";TrustServerCertificate=True", options =>
     {
-        options.EnableRetryOnFailure();
+    options.CommandTimeout(180);
+    options.EnableRetryOnFailure();
     });
     opt.LogTo(Console.WriteLine);
 });

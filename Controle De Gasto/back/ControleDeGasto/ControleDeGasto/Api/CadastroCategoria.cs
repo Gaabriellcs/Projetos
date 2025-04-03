@@ -1,7 +1,9 @@
-﻿using ControleGasto.Dados;
+﻿
+using ControleGasto.Dados;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace ControleGasto.Api;
 [Authorize]
@@ -154,6 +156,8 @@ public class CadastroCategoria : ControllerBase
 
 
     }
+
+
 
 
 }

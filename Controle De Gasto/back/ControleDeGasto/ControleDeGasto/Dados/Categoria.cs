@@ -19,4 +19,6 @@ public record Categoria
     [ForeignKey("IdUsuario")]
     [JsonIgnore]
     public Usuarios? Usuario { get; set; }
+
+
 }

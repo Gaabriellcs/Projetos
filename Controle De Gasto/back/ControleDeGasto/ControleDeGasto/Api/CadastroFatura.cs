@@ -7,6 +7,8 @@ using System.Globalization;
 using Microsoft.AspNetCore.Authorization;
 using CsvHelper.TypeConversion;
 using System.Text.RegularExpressions;
+using Microsoft.EntityFrameworkCore;
+using System.Drawing;
 
 namespace ControleGasto.Api;
 
@@ -46,7 +48,7 @@ public class CadastroFatura : ControllerBase
             using var reader = new StreamReader(file.OpenReadStream());
             using var csv = new CsvReader(reader, CultureInfo.InvariantCulture);
 
-           
+
 
             var codigoBanco = db.Bancos.Where(p => p.Id == banco && p.IdUsuario == usuario).FirstOrDefault();
 
@@ -62,28 +64,29 @@ public class CadastroFatura : ControllerBase
             }
 
 
-           
+
 
             var transacoes = csv.GetRecords<Transacao>().ToList();
 
-            
+
             var faturas = new List<Faturas>();
 
             foreach (var transacao in transacoes)
             {
+                var categoriaId = ObterCategoriaPeloHistorico(transacao.Descricao, usuario);
 
                 faturas.Add(new Faturas
                 {
                     Data = transacao.Data,
                     Descricao = transacao.Descricao,
                     Valor = (decimal)Math.Round(transacao.Valor, 2),
-                    IdCategoria = null,
+                    IdCategoria = categoriaId.HasValue ? categoriaId.Value : null,
                     IdBanco = banco,
                     IdUsuario = usuario
                 });
             }
 
-            
+
             db.Faturas.AddRange(faturas);
             await db.SaveChangesAsync();
 
@@ -117,6 +120,9 @@ public class CadastroFatura : ControllerBase
             }
 
             localizado.IdCategoria = categoria;
+
+            SalvarPadraoConciliacao(categoria, localizado!.Descricao, usuario);
+
             db.SaveChanges();
             return Ok();
         }
@@ -244,6 +250,37 @@ public class CadastroFatura : ControllerBase
 
             return decimal.Parse(valorLimpo, new CultureInfo("pt-BR"));
         }
+    }
+
+
+    public void SalvarPadraoConciliacao(int categoriaId, string descricao, int usuarioId)
+    {
+        var padraoExistente = db.ConciliacaoPadrao
+       .Where(p => p.Descricao == descricao && p.IdCategoria == usuarioId).FirstOrDefault();
+
+        if (padraoExistente == null)
+        {
+            db.ConciliacaoPadrao.Add(new ConciliacaoPadrao
+            {
+                Descricao = descricao,
+                IdCategoria = categoriaId,
+                IdUsuario = usuarioId,
+                Data = DateTime.Now,
+
+            });
+            db.SaveChanges();
+
+        }
+    }
+
+    public int? ObterCategoriaPeloHistorico(string descricao, int usuarioId)
+    {
+        var padrao = db.ConciliacaoPadrao
+            .Where(p => p.IdUsuario == usuarioId && p.Descricao == descricao)
+            .OrderByDescending(p => p.Data)
+            .FirstOrDefault();
+
+        return padrao?.IdCategoria;
     }
 }
 
