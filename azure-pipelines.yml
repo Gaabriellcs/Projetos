@@ -10,7 +10,7 @@ steps:
     echo "A restaurar os pacotes e a compilar o .NET Core..."
     dotnet restore
     dotnet build --configuration Release
-  workingDirectory: 'Projetos/Controle De Gasto/back/ControleDeGasto'
+  workingDirectory: 'Controle De Gasto/back/ControleDeGasto'
   displayName: 'Compilar Back-end (.NET)'
 
 # Passo 2: Compilar o Front-end (Angular)
@@ -18,5 +18,5 @@ steps:
     echo "A instalar dependências e a compilar o Angular..."
     npm install
     npm run build
-  workingDirectory: 'Projetos/Controle De Gasto/frontControle'
+  workingDirectory: 'Controle De Gasto/frontControle'
   displayName: 'Compilar Front-end (Angular)'
