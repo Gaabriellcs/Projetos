@@ -1,8 +1,3 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
-
 trigger:
 - main
 
@@ -10,10 +5,18 @@ pool:
   name: Default
 
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
-
+# Passo 1: Compilar o Back-end (.NET)
 - script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+    echo "A restaurar os pacotes e a compilar o .NET Core..."
+    dotnet restore
+    dotnet build --configuration Release
+  workingDirectory: 'Projetos/Controle De Gasto/back/ControleDeGasto'
+  displayName: 'Compilar Back-end (.NET)'
+
+# Passo 2: Compilar o Front-end (Angular)
+- script: |
+    echo "A instalar dependências e a compilar o Angular..."
+    npm install
+    npm run build
+  workingDirectory: 'Projetos/Controle De Gasto/frontControle'
+  displayName: 'Compilar Front-end (Angular)'
